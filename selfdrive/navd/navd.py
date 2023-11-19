@@ -132,6 +132,7 @@ class RouteEngine:
       'banner_instructions': 'true',
       'alternatives': 'false',
       'language': lang,
+      'max_width': '1.8',
     }
 
     # TODO: move waypoints into NavDestination param?
