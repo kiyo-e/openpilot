@@ -63,11 +63,10 @@ class RouteEngine:
     with open('../../../mb_token.txt','r') as fp:
       self.mapbox_token = fp.read()
       self.mapbox_host = "https://api.mapbox.com"
-      aaa = self.mapbox_host
-      # aaa = self.mapbox_token
+      aaa = self.mapbox_token
 
     with open('../../../ttt.txt','w') as fp:
-      fp.write('<%s>',aaa)
+      fp.write('<%s>' % (aaa))
 
   def update(self):
     self.sm.update(0)
