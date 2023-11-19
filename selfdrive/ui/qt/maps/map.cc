@@ -636,7 +636,7 @@ void MapLimitspeed::updateLimitspeed(int map_width) {
   }
 #endif
   if(now_navigation == true){
-    stand_still_height = 110; //見た目ハードコーディング
+    stand_still_height = 120; //見た目ハードコーディング
   }
   if (map_width == 0 || uiState()->scene.map_on_left) {
     this->move(UI_BORDER_SIZE, 1080 - UI_BORDER_SIZE*2 - r*2 - UI_BORDER_SIZE - stand_still_height); //地図にナビ用ボタンが追加されたので、こちらは使わない。->復活？
