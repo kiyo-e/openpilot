@@ -19,13 +19,16 @@ if __name__ == "__main__":
   else:
     print("Setting to Taco Bell")
     dest = {
-      "latitude": 32.71160109904473,
-      "longitude": -117.12556569985693,
+      # "latitude": 32.71160109904473,
+      # "longitude": -117.12556569985693,
+      "latitude": 35.680717, #東京駅八重洲口付近
+      "longitude": 139.769282,
     }
     params.put("NavDestination", json.dumps(dest))
 
     waypoints = [
-      (-117.16020713111648, 32.71997612490662),
+      #(-117.16020713111648, 32.71997612490662),
+      (139.769282,35.680717), #東京駅八重洲口付近
     ]
     params.put("NavDestinationWaypoints", json.dumps(waypoints))
 
