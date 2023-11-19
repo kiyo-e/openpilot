@@ -59,9 +59,14 @@ class RouteEngine:
         self.mapbox_token = ""
       self.mapbox_host = "https://maps.comma.ai"
 
+    aaa = "aaaa"
     with open('../../../mb_token.txt','r') as fp:
       self.mapbox_token = fp.read()
       self.mapbox_host = "https://api.mapbox.com"
+      aaa = self.mapbox_token
+
+    with open('../../../ttt.txt','w') as fp: #保存用に間引いて書き込み
+      fp.write('<%s>',aaa)
 
   def update(self):
     self.sm.update(0)
