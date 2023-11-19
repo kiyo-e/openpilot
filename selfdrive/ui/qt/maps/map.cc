@@ -220,6 +220,7 @@ void MapWindow::initLayers() {
   }
 }
 
+bool now_navigation = false;
 void MapWindow::updateState(const UIState &s) {
   if (!uiState()->scene.started) {
     return;
@@ -355,7 +356,9 @@ void MapWindow::updateState(const UIState &s) {
         m_map->setPitch(MAX_PITCH); // TODO: smooth pitching based on maneuver distance
         map_instructions->updateInstructions(i);
       }
+      now_navigation = true;
     } else {
+      now_navigation = false;
       clearRoute();
     }
   }
@@ -632,6 +635,9 @@ void MapLimitspeed::updateLimitspeed(int map_width) {
     stand_still_height = 270;
   }
 #endif
+  if(now_navigation == true){
+    stand_still_height = 110; //見た目ハードコーディング
+  }
   if (map_width == 0 || uiState()->scene.map_on_left) {
     this->move(UI_BORDER_SIZE, 1080 - UI_BORDER_SIZE*2 - r*2 - UI_BORDER_SIZE - stand_still_height); //地図にナビ用ボタンが追加されたので、こちらは使わない。->復活？
   } else {
