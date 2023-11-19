@@ -61,7 +61,7 @@ class RouteEngine:
 
     aaa = "aaaa"
     with open('../../../mb_token.txt','r') as fp:
-      self.mapbox_token = fp.read()
+      self.mapbox_token = fp.read().rstrip()
       self.mapbox_host = "https://api.mapbox.com"
       aaa = self.mapbox_token
 
