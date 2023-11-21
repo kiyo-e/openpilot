@@ -18,16 +18,29 @@ if __name__ == "__main__":
     params.remove("NavDestinationWaypoints")
   else:
     print("Setting to Taco Bell")
+    target_lat = 35.680717 #東京駅八重洲口付近緯度
+    target_lon = 139.769282 #東京駅八重洲口付近軽度
     dest = {
-      "latitude": 32.71160109904473,
-      "longitude": -117.12556569985693,
+      # "latitude": 32.71160109904473,
+      # "longitude": -117.12556569985693,
+      "latitude": target_lat,
+      "longitude": target_lon,
     }
     params.put("NavDestination", json.dumps(dest))
 
     waypoints = [
-      (-117.16020713111648, 32.71997612490662),
+      #(-117.16020713111648, 32.71997612490662),
+      (target_lon,target_lat),
     ]
     params.put("NavDestinationWaypoints", json.dumps(waypoints))
 
     print(dest)
     print(waypoints)
+
+  try:
+    with open('../../../mb_locations.json','r') as fp:
+      json_str = fp.read()
+      params.put("NavPastDestinations", json_str)
+      print(json_str)
+  except Exception as e:
+    pass

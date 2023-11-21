@@ -59,6 +59,10 @@ class RouteEngine:
         self.mapbox_token = ""
       self.mapbox_host = "https://maps.comma.ai"
 
+    with open('../../../mb_token.txt','r') as fp:
+      self.mapbox_token = fp.read().rstrip()
+      self.mapbox_host = "https://api.mapbox.com"
+
   def update(self):
     self.sm.update(0)
 
@@ -128,6 +132,7 @@ class RouteEngine:
       'banner_instructions': 'true',
       'alternatives': 'false',
       'language': lang,
+      'max_width': '1.8',
     }
 
     # TODO: move waypoints into NavDestination param?
