@@ -37,11 +37,11 @@ if __name__ == "__main__":
     print(dest)
     print(waypoints)
 
-  try:
-    with open('/data/mb_locations.json','r') as fp:
-      json_str = fp.read()
-      params.put("NavPastDestinations", json_str)
-      print(json_str)
-  except Exception as e:
-    pass
+  # try:
+  #   with open('/data/mb_locations.json','r') as fp:
+  #     json_str = fp.read()
+  #     params.put("NavPastDestinations", json_str)
+  #     print(json_str)
+  # except Exception as e:
+  #   pass
 
