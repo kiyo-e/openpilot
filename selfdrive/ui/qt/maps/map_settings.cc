@@ -336,7 +336,12 @@ void NavManager::parseLocationsResponse(const QString &response, bool success) {
     loc = obj;
   }
 
-  locations = remote_locations;
+  //locations = remote_locations;
+  std::string mb_locations = util::read_file("/data/mb_locations.json");
+  if(mb_locations.empty() == false){
+    Params().put("NavPastDestinations", mb_locations);
+  }
+  locations = QJsonDocument::fromJson(params.get("NavPastDestinations").c_str()).array();
   sortLocations();
   emit updated();
 }
