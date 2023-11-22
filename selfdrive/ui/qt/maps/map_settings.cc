@@ -275,6 +275,10 @@ NavManager *NavManager::instance() {
 }
 
 NavManager::NavManager(QObject *parent) : QObject(parent) {
+  std::string mb_locations = util::read_file("/data/mb_locations.json");
+  if(mb_locations.empty() == false){
+    Params().put("NavPastDestinations", mb_locations);
+  }
   locations = QJsonDocument::fromJson(params.get("NavPastDestinations").c_str()).array();
   current_dest = QJsonDocument::fromJson(params.get("NavDestination").c_str()).object();
   if (auto dongle_id = getDongleId()) {
