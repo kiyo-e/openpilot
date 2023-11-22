@@ -356,8 +356,21 @@ void MapWindow::updateState(const UIState &s) {
         m_map->setPitch(MAX_PITCH); // TODO: smooth pitching based on maneuver distance
         map_instructions->updateInstructions(i);
       }
+      if(now_navigation == false && night_mode >= 0){
+        night_mode = -1; //ナビ中の昼夜切り替えを無効にする。
+        m_map->setStyleUrl("mapbox://styles/commaai/clkqztk0f00ou01qyhsa5bzpj"); //ナビ中はスタイルを公式に戻す。
+      }
       now_navigation = true;
     } else {
+      if(now_navigation == true){
+        if(my_mapbox_style_night.empty() == false && check_night_mode()){ //夜だったら
+          night_mode = 1;
+          m_map->setStyleUrl(my_mapbox_style_night.c_str());
+        } else if(my_mapbox_style.empty() == false){ //昼だったら
+          night_mode = 0;
+          m_map->setStyleUrl(my_mapbox_style.c_str());
+        }
+      }
       now_navigation = false;
       clearRoute();
     }
