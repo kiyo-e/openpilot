@@ -378,7 +378,7 @@ void MapWindow::updateState(const UIState &s) {
     }
   }
 
-  if(style_reload == 1){
+  if(style_reload == 1 && locationd_valid == true && routing_problem == false){
     style_reload --;
     FILE *fp = fopen("/tmp/route_style_reload.txt","w");
     if(fp != NULL){
