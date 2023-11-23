@@ -134,6 +134,8 @@ class RouteEngine:
     self.nav_destination = destination
 
     lang = self.params.get('LanguageSetting', encoding='utf8')
+    if '1131d250d405' in os.environ['DONGLE_ID']:
+      lang = "main_ja"
     if lang is not None:
       lang = lang.replace('main_', '')
 
