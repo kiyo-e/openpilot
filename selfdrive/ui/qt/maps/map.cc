@@ -220,7 +220,8 @@ void MapWindow::initLayers() {
   }
 }
 
-bool now_navigation = false , style_reload = false;
+bool now_navigation = false;
+int style_reload = 0;
 void MapWindow::updateState(const UIState &s) {
   if (!uiState()->scene.started) {
     return;
@@ -290,7 +291,7 @@ void MapWindow::updateState(const UIState &s) {
     emit LimitspeedChanged(rect().width()); //最初に右に寄せるために必要。
   }
 
-  if ((style_reload || sm.updated("navRoute")) && sm["navRoute"].getNavRoute().getCoordinates().size()) {
+  if (sm.updated("navRoute") && sm["navRoute"].getNavRoute().getCoordinates().size()) {
     auto nav_dest = coordinate_from_param("NavDestination");
     bool allow_open = std::exchange(last_valid_nav_dest, nav_dest) != nav_dest &&
                       nav_dest && !isVisible();
@@ -298,7 +299,6 @@ void MapWindow::updateState(const UIState &s) {
 
     // Show map on destination set/change
     if (allow_open) {
-      style_reload = false;
       emit requestSettings(false);
       emit requestVisible(true);
     }
@@ -360,7 +360,7 @@ void MapWindow::updateState(const UIState &s) {
       if(now_navigation == false && night_mode >= 0){
         night_mode = -1; //ナビ中の昼夜切り替えを無効にする。昼夜切り替えでルートが消えるから、この処理は必須。
         m_map->setStyleUrl("mapbox://styles/commaai/clkqztk0f00ou01qyhsa5bzpj"); //ナビ中はスタイルを公式に戻す。
-        style_reload = true;
+        style_reload = 30;
       }
       now_navigation = true;
     } else {
@@ -376,6 +376,16 @@ void MapWindow::updateState(const UIState &s) {
       now_navigation = false;
       clearRoute();
     }
+  }
+
+  if(style_reload <= 0){
+    FILE *fp = fopen("/tmp/route_style_reload.txt","w");
+    if(fp != NULL){
+      fprintf(fp,"%d",1);
+      fclose(fp);
+    }
+  } else {
+    style_reload --;
   }
 
   if (sm.rcv_frame("navRoute") != route_rcv_frame) {
