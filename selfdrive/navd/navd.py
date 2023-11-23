@@ -103,18 +103,19 @@ class RouteEngine:
       cloudlog.warning(f"Got new destination from NavDestination param {new_destination}")
       should_recompute = True
 
-    try:
-      with open('/tmp/route_style_reload.txt','r') as fp:
-        route_style_reload_str = fp.read()
-        if route_style_reload_str:
-          if int(route_style_reload_str) == 1:
-            should_recompute = True
-            self.recompute_countdown = 0
-      if should_recompute == True:
-        with open('/tmp/route_style_reload.txt','w') as fp:
-          fp.write('%d' % (0))
-    except Exception as e:
-      pass    
+    if self.recompute_countdown == 0:
+      try:
+        with open('/tmp/route_style_reload.txt','r') as fp:
+          route_style_reload_str = fp.read()
+          if route_style_reload_str:
+            if int(route_style_reload_str) == 1:
+              should_recompute = True
+              self.recompute_countdown = 0
+        if should_recompute == True:
+          with open('/tmp/route_style_reload.txt','w') as fp:
+            fp.write('%d' % (0))
+      except Exception as e:
+        pass    
 
     # Don't recompute when GPS drifts in tunnels
     if not self.gps_ok and self.step_idx is not None:

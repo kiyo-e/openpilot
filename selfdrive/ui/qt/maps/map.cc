@@ -360,7 +360,7 @@ void MapWindow::updateState(const UIState &s) {
       if(now_navigation == false && night_mode >= 0){
         night_mode = -1; //ナビ中の昼夜切り替えを無効にする。昼夜切り替えでルートが消えるから、この処理は必須。
         m_map->setStyleUrl("mapbox://styles/commaai/clkqztk0f00ou01qyhsa5bzpj"); //ナビ中はスタイルを公式に戻す。
-        style_reload = 30;
+        style_reload = 10;
       }
       now_navigation = true;
     } else {
