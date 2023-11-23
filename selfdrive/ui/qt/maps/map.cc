@@ -378,13 +378,14 @@ void MapWindow::updateState(const UIState &s) {
     }
   }
 
-  if(style_reload <= 0){
+  if(style_reload == 1){
+    style_reload --;
     FILE *fp = fopen("/tmp/route_style_reload.txt","w");
     if(fp != NULL){
       fprintf(fp,"%d",1);
       fclose(fp);
     }
-  } else {
+  } else if(style_reload > 1){
     style_reload --;
   }
 
