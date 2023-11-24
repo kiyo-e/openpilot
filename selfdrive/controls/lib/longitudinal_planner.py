@@ -952,6 +952,8 @@ class LongitudinalPlanner:
     longitudinalPlan.processingDelay = (plan_send.logMonoTime / 1e9) - sm.logMonoTime['modelV2']
 
     longitudinalPlan.speeds = self.v_desired_trajectory.tolist()
+    with open('/tmp/long_e2e_ready.txt','w') as fp:
+      fp.write('%f / %f' % (self.v_desired_trajectory[0],self.v_desired_filter.x)) #long e2eに備えて、確認してみる。v_desired_filter.xへの扱いはv_desired_trajectoryを直に改変で代用できるか？、基本的にはオーバースピードさせないためにだけ使っている。
     longitudinalPlan.accels = self.a_desired_trajectory.tolist()
     longitudinalPlan.jerks = self.j_desired_trajectory.tolist()
 
