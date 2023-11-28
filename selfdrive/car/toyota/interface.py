@@ -251,7 +251,7 @@ class CarInterface(CarInterfaceBase):
     if not ret.openpilotLongitudinalControl:
       ret.safetyConfigs[0].safetyParam |= Panda.FLAG_TOYOTA_STOCK_LONGITUDINAL
 
-    if True: #candidate in EV_HYBRID_CAR: #ichiropilot,決め打ち
+    if False: #candidate in EV_HYBRID_CAR: #ichiropilot,決め打ち
       ret.flags |= ToyotaFlags.HYBRID.value
 
     # min speed to enable ACC. if car can do stop and go, then set enabling speed
